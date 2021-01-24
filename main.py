@@ -5,10 +5,6 @@ DATA_DIR = "data"
 conn, cursor = rds_manager.connect()
 dl = data_loader.DataLoader(conn)
 
-users: table_schemas.Table = table_schemas.Users
-dl.create_table(users)
-dl.load_data(data_dir=DATA_DIR, table=users)
-
-trips: table_schemas.Table = table_schemas.Trips
-dl.create_table(trips)
-dl.load_data(data_dir=DATA_DIR, table=trips)
+for table in [table_schemas.Employee, table_schemas.Salary, table_schemas.Activity]:
+    dl.create_table(table)
+    dl.load_data(data_dir=DATA_DIR, table=table)
