@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 import os
-import logging
 
 import boto3
 import psycopg2
 from tenacity import retry, retry_if_exception_type, stop_after_delay, wait_fixed
+from rds_manager.logging_util import get_logger
 
 
 # One instance only, don't have the extra $$
@@ -18,14 +18,7 @@ PGUSER = "willwang"
 PGPASSWORD = os.getenv("PGPASSWORD")
 
 # use the base logger s.t. it will log properly in the notbooks
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logging.basicConfig(
-    format=(
-        "%(asctime)s: %(module)s:%(funcName)s:%(lineno)d"
-        " - %(levelname)s - %(message)s"
-    )
-)
+logger = get_logger()
 
 rds_client = boto3.client("rds", region_name="us-east-1")
 

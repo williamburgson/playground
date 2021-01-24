@@ -1,10 +1,9 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import typing
 
 
 @dataclass
 class ForeignKey:
-    constrain: str
     name: str
     ref_table: str
     ref_key: str
@@ -47,14 +46,14 @@ class Trips(Table):
     source = "trips.csv"
     pk = Column("Id", "INT")
     fks = [
-        ForeignKey("fk_cid", "Client_Id", Users.name, "User_Id"),
-        ForeignKey("fk_did", "Driver_Id", Users.name, "User_Id"),
+        ForeignKey("Client_Id", Users.name, "Users_Id"),
+        ForeignKey("Driver_Id", Users.name, "Users_Id"),
     ]
     schema = [
         Column("Id", "INT"),
         Column("Client_Id", "INT"),
         Column("Driver_Id", "INT"),
         Column("City_ID", "INT"),
-        Column("Status", "INT"),
+        Column("Status", "VARCHAR"),
         Column("Request_at", "DATE"),
     ]
