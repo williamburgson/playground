@@ -53,7 +53,7 @@ def __update_instance(fn):
 )
 def __instance_ready(state):
     """Keep checking the instance status until it is ready"""
-    response = __update_instance(rds_client.describe_db_instance)
+    response = __update_instance(rds_client.describe_db_instances)
     status = response["DBInstances"][0]["DBInstanceStatus"]
     if status == state:
         return True
@@ -101,6 +101,6 @@ def connect(table_name=PGDATABASE):
                 start_instance()
                 return __connect_db(table_name)
             except Exception as e:
-                logging.error("Cannot start db %s", PGDATABASE)
-                logging.exception(e)
+                logger.error("Cannot start db %s", PGDATABASE)
+                logger.exception(e)
     return None, None

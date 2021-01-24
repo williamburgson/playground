@@ -16,13 +16,8 @@ class Column:
 
 
 @dataclass
-class Schema:
-    columns: typing.List[Column]
-
-
-@dataclass
 class Table:
-    schema: Schema
+    schema: typing.List[Column]
     name: str
     source: str
     pk: Column
