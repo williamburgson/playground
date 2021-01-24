@@ -19,7 +19,7 @@ class DataLoader:
 
     def drop_table(self, table: table_schemas.Table):
         logger.info("Dropping table %s", table.name)
-        sql = f"DROP TABLE IF EXISTS {table.name};"
+        sql = f"DROP TABLE IF EXISTS {table.name} CASCADE;"
         return self.__execute(sql)
 
     def create_table(self, table: table_schemas.Table):
@@ -38,7 +38,7 @@ class DataLoader:
         column_defs = "\n".join(column_defs)
         fk_str = ",\n".join(fk_str)
         sql = f"""
-        CREATE TABLE {table.name} (
+        CREATE TABLE IF NOT EXISTS {table.name} (
         {column_defs}
             PRIMARY KEY ({table.pk.name}){',' if len(fk_str) > 0 else ''}
             {fk_str}

@@ -52,3 +52,42 @@ class Trips(Table):
         Column("Status", "VARCHAR"),
         Column("Request_at", "DATE"),
     ]
+
+
+class Employee(Table):
+    name = "Employee"
+    source = "employee.csv"
+    pk = Column("id", "SERIAL")
+    fks = []
+    schema = [
+        Column("id", "SERIAL"),
+        Column("employee_id", "INT"),
+        Column("department_id", "INT"),
+    ]
+
+
+class Salary(Table):
+    name = "Salary"
+    source = "salary.csv"
+    pk = Column("id", "INT")
+    fks = []
+    schema = [
+        Column("id", "INT"),
+        Column("employee_id", "INT"),
+        Column("amount", "INT"),
+        Column("pay_date", "DATE"),
+    ]
+
+
+class Activity(Table):
+    name = "Activity"
+    source = "activity.csv"
+    pk = Column("id", "SERIAL")
+    fks = []
+    schema = [
+        Column("id", "SERIAL"),
+        Column("player_id", "INT"),
+        Column("device_id", "INT"),
+        Column("event_date", "DATE"),
+        Column("games_played", "INT"),
+    ]

@@ -41,15 +41,19 @@ def __update_instance(fn):
     return res
 
 
+def __log_retry_state(retry_state):
+    logger.info(
+        "Waiting for instance update to compelete (%d) ...",
+        int(retry_state.attempt_number) * 45,
+    )
+
+
 @retry(
     stop=stop_after_delay(120),
     reraise=True,
     wait=wait_fixed(45),
     retry=retry_if_exception_type(DBStateException),
-    before_sleep=lambda state: logger.info(
-        "Waiting for instance update to compelete (%d) ...",
-        int(state.attempt_number) * 45,
-    ),
+    before_sleep=__log_retry_state,
 )
 def __instance_ready(state):
     """Keep checking the instance status until it is ready"""
