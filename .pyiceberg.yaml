@@ -1,0 +1,4 @@
+catalog:
+  local:
+    url: http://rest-catalog/ws/
+    credential: t-1234:secret
