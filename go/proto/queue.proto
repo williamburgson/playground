@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option go_package = "queue-workers/queue";
+
+package queue;
+
+service Queue {
+    rpc AddTask(TaskAddRequest) returns (TaskAddReply) {}
+    rpc WatchQueue(TaskWatchRequest) returns (stream TaskWatchReply) {}
+}
+
+message Task {
+    string name = 1;
+    string payload = 2;
+    string queue = 3;
+}
+
+message TaskAddRequest {
+    Task task = 1;
+}
+
+message TaskAddReply {
+    string msg = 1;
+}
+
+message TaskWatchRequest {
+    string queue = 1;
+}
+
+message TaskWatchReply {
+    Task task = 1;
+}
